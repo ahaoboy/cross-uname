@@ -12,22 +12,22 @@ pub fn uname() -> io::Result<Info> {
     Info::new()
 }
 
+fn exec(cmd: &str, arg: &str) -> String {
+    let out = std::process::Command::new(cmd)
+        .arg(arg)
+        .output()
+        .unwrap()
+        .stdout;
+    String::from_utf8(out).unwrap().trim().to_string()
+}
+
 impl Info {
     pub fn new() -> io::Result<Self> {
-        fn exec(arg: &str) -> String {
-            let out = std::process::Command::new("uname")
-                .arg(arg)
-                .output()
-                .unwrap()
-                .stdout;
-            String::from_utf8(out).unwrap().trim().to_string()
-        }
-
-        let sysname = exec("-s");
-        let nodename = exec("-n");
-        let release = exec("-r");
-        let version = exec("-v");
-        let machine = exec("-m");
+        let sysname = exec("uname", "-s");
+        let nodename = exec("uname", "-n");
+        let release = exec("uname", "-r");
+        let version = exec("uname", "-v");
+        let machine = exec("uname", "-m");
 
         Ok(Info {
             sysname,
