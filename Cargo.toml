@@ -7,6 +7,3 @@ license = "MIT"
 description = "cross-uname"
 homepage = "https://github.com/ahaoboy/cross-uname"
 authors = ["ahaoboy"]
-
-[target.'cfg(not(target_os = "windows"))'.dependencies]
-libc = "0.2"
